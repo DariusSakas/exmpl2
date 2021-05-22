@@ -22,7 +22,7 @@ public class ProductController {
         return productList.stream().filter(product -> product.getId() == id).findAny().get();
     }
     @PostMapping("/products")
-    public Product addProduct(@RequestParam Product product){
+    public Product addProduct(@RequestBody Product product){
         productList.add(product);
         return product;
     }
@@ -39,8 +39,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
-    public List<Product> removeProduct(@RequestBody Product productToUpdate){
-        Product existingProduct = productList.stream().filter(product -> product.getId() == productToUpdate.getId()).findAny().get();
+    public List<Product> removeProduct(@PathVariable int productToDeleteId){
+        Product existingProduct = productList.stream().filter(product -> productToDeleteId == product.getId()).findAny().get();
         productList.remove(existingProduct);
         return productList;
     }
